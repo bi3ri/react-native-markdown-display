@@ -184,9 +184,27 @@ const Markdown = React.memo(
       ],
     );
 
+    // const momoizedParser = useMemo(() => markdownit, [markdownit]);
     const momoizedParser = useMemo(() => markdownit, [markdownit]);
 
-    return parser(children, momoizedRenderer.render, momoizedParser);
+    // return parser(children, momoizedRenderer.render, momoizedParser);
+
+    return parser(
+      children,
+      getRenderer(
+          textcomponent,
+          renderer,
+          rules,
+          style,
+          mergeStyle,
+          onLinkPress,
+          maxTopLevelChildren,
+          topLevelMaxExceededItem,
+          allowedImageHandlers,
+          defaultImageHandler,
+          debugPrintTree,
+        ).render, 
+      markdownit);
   },
 );
 
