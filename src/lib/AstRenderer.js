@@ -169,8 +169,8 @@ export default class AstRenderer {
       children.push(this._topLevelMaxExceededItem);
     }
 
-    // render anythign else that has a normal signature
-
+    // render anything else that has a normal signature
+    
     return renderFunction(node, children, parentNodes, this._style);
   };
 
