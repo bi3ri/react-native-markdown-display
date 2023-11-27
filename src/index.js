@@ -21,6 +21,7 @@ import FitImage from 'react-native-fit-image';
 import textStyleProps from './lib/data/textStyleProps';
 
 export {
+  getRenderer,
   getUniqueID,
   openUrl,
   hasParents,

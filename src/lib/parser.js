@@ -25,3 +25,12 @@ export default function parser(source, renderer, markdownIt) {
 
   return renderer(astTree);
 }
+
+export function parseMd(source, markdownIt) {
+  let tokens = stringToTokens(source, markdownIt);
+  tokens = cleanupTokens(tokens);
+  tokens = groupTextTokens(tokens);
+  tokens = omitListItemParagraph(tokens);
+
+  return tokensToAST(tokens);
+}
