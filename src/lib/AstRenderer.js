@@ -29,6 +29,7 @@ export default class AstRenderer {
     this._allowedImageHandlers = allowedImageHandlers;
     this._defaultImageHandler = defaultImageHandler;
     this._debugPrintTree = debugPrintTree;
+    this._cachedRenderResult;
   }
 
   /**
@@ -71,20 +72,26 @@ export default class AstRenderer {
 
     parents.unshift(node);
 
-    // calculate the children first
+    // render map container children
+    // if (node.type === 'container_map') {
+    //   var mapRef;
+    //   return renderFunction(node, children, parentNodes, this._style, mapRef);
+    // }
+
+    // calculate all other children first
     let children = node.children.map((value) => {
       return this.renderNode(value, parents);
     });
 
     // render any special types of nodes that have different renderRule function signatures
-
     if (node.type === 'link' || node.type === 'blocklink') {
       return renderFunction(
         node,
         children,
         parentNodes,
         this._style,
-        this._onLinkPress,
+        // this._allowedImageHandlers,
+        // this._defaultImageHandler,
       );
     }
 
@@ -158,7 +165,7 @@ export default class AstRenderer {
       return renderFunction(node, children, parentNodes, this._style, styleObj);
     }
 
-    // cull top level children
+    // cut top level children
 
     if (
       isRoot === true &&
@@ -170,7 +177,7 @@ export default class AstRenderer {
     }
 
     // render anything else that has a normal signature
-    
+
     return renderFunction(node, children, parentNodes, this._style);
   };
 
@@ -179,8 +186,30 @@ export default class AstRenderer {
    * @param nodes
    * @return {*}
    */
-  render = (nodes) => {
+  createRender = (nodes) => {
     const root = {type: 'body', key: getUniqueID(), children: nodes};
     return this.renderNode(root, [], true);
+    // this._cachedRenderResult = () => this.renderNode(root, [], true);
+    // return true;
   };
+
+  /**
+   *
+   * @return {renderResult}
+   */
+  getRender = () => {
+    return () => this._cachedRenderResult;
+  };
+
+  /**
+   *
+   * @param nodes
+   * @return {*}
+   */
+  //   render = (nodes) => {
+  //     if(this._cachedRenderResult !== undefined) return this._cachedRenderResult
+  //     const root = {type: 'body', key: getUniqueID(), children: nodes};
+  //     this._cachedRenderResult = this.renderNode(root, [], true);
+  //     return this._cachedRenderResult;
+  //   };
 }

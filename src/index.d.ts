@@ -1,3 +1,4 @@
+import { getRenderer } from 'lib/react-native-markdown-display';
 // tslint:disable:max-classes-per-file
 import MarkdownIt from 'markdown-it';
 import Token from 'markdown-it/lib/token';
@@ -72,13 +73,36 @@ export class AstRenderer {
 
   renderNode(node: any, parentNodes: ReadonlyArray<any>): ReactNode;
 
+  createRender(nodes: ReadonlyArray<any>): boolean;
+
+  getRender(): View;
+
   render(nodes: ReadonlyArray<any>): View;
 }
+
+export function getRenderer(
+  textcomponent,
+  renderer,
+  rules,
+  style,
+  mergeStyle,
+  onLinkPress,
+  maxTopLevelChildren,
+  topLevelMaxExceededItem,
+  allowedImageHandlers,
+  defaultImageHandler,
+  debugPrintTree,
+) : AstRenderer;
 
 export function parser(
   source: string,
   renderer: (node: ASTNode) => View,
   parser: MarkdownParser,
+): any;
+
+export function parseMd(
+  source: string,
+  markdownIt: MarkdownIt,
 ): any;
 
 export function stringToTokens(

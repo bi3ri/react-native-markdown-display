@@ -6,7 +6,7 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import PropTypes from 'prop-types';
-import parser from './lib/parser';
+import parser, {parseMd} from './lib/parser';
 import getUniqueID from './lib/util/getUniqueID';
 import hasParents from './lib/util/hasParents';
 import openUrl from './lib/util/openUrl';
@@ -21,13 +21,14 @@ import FitImage from 'react-native-fit-image';
 import textStyleProps from './lib/data/textStyleProps';
 
 export {
-  getRenderer,
   getUniqueID,
   openUrl,
   hasParents,
   renderRules,
   AstRenderer,
+  getRenderer,
   parser,
+  parseMd,
   stringToTokens,
   tokensToAST,
   MarkdownIt,
